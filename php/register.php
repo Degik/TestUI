@@ -3,9 +3,9 @@
     <?php
 require('../mysql/db.php');
 
-if(isset($_REQUEST['user'])){
-    $username = stripslashes($_REQUEST['user']);
-    $password = stripslashes($_REQUEST['pass']);
+if(isset($_POST['user'])){
+    $username = stripslashes($_POST['user']);
+    $password = stripslashes($_POST['pass']);
     $result = $database->registerQuery($username, $password);
 
     if($result){

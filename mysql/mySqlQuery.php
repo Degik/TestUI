@@ -2,17 +2,22 @@
 
 class MySqlQuery extends MySql{
     //
-    function registerQuery($username, $password){
-        $username = $this->connection->real_escape_string($username);
-        $password = $this->connection->real_escape_string($password);
+    public function registerQuery($username, $password){
+        $username = MySqlQuery::escapeFunction($username);
+        $password = MySqlQuery::escapeFunction($password);
         $query = "INSERT INTO admin_user (adminUsername, adminPassword) VALUES ('".$username."', '".password_hash($password, PASSWORD_DEFAULT)."')";
         return $this->connection->query($query);
     }
 
-    function loginQuery($username, $password){
-        $username = $this->connection->real_escape_string($username);
-        $password = $this->connection->real_escape_string($password);
-        
+    public function loginQuery($username, $password){
+        $username = MySqlQuery::escapeFunction($username);
+        $password = MySqlQuery::escapeFunction($password);
+        $query = "SELECT admindId, adminUsername, adminPassword FROM admin_user WHERE adminUsername =" . $username . " AND adminPassword = " . $password . ";";
+        return $this->connection->query($query); 
+    }
+
+    private function escapeFunction($text){
+        return $this->connection->real_escape_string($text);
     }
 }
 
