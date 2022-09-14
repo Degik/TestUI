@@ -12,7 +12,7 @@ class MySqlQuery extends MySql{
     public function loginQuery($username, $password){
         $username = MySqlQuery::escapeFunction($username);
         $password = MySqlQuery::escapeFunction($password);
-        $query = "SELECT admindId, adminUsername, adminPassword FROM admin_user WHERE adminUsername =" . $username . " AND adminPassword = " . $password . ";";
+        $query = "SELECT adminId, adminUsername, adminPassword FROM admin_user WHERE adminUsername = " . "'" . $username . "'". ";";
         return $this->connection->query($query); 
     }
 
